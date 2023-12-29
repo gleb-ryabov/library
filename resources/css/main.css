@@ -1,0 +1,123 @@
+/* For everything except the header */
+.body{
+    margin-left: 130px;
+    margin-right: 130px;
+}
+
+/* Button for creating the book in book.create */
+.new_book_btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ .new_book_btn button{
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(88, 88, 88);
+    padding: 15px;
+    margin-top: 30px;
+ }
+
+/* Form for creating and editing the book */
+.form_book{
+    margin-top: 30px;
+}
+ .form_book input{
+    width: 100%;
+    font-size: 22px;
+ }
+ .form_book textarea{
+    margin-top: 15px;
+    width: 100%;
+    height: 400px;
+ }
+ .form_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+  .form_button button{
+    font-size: 18px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(62, 174, 49);
+    padding: 15px 30px;
+    margin-top: 15px;
+  }
+
+/* Access button to library for access.show */
+.access_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ .access_button button{
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(88, 88, 88);
+    padding: 15px 40px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+ }
+.library_hidden{
+    font-size: 20px;
+    font-style: italic;
+}
+.library_open{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Book's view */
+.book{
+    margin: 20px 80px;
+}
+    /* Books' manager container */
+ .manage_book{
+    text-align: center;
+  }
+   .manage_book form{
+    display: inline-block;
+    width: 180px;
+   }
+   .manage_book button{
+    display: inline-block;
+    color: white;
+    border: 0px;
+    border-radius: 15px;
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+   }
+    .delete_btn{
+        background-color: rgb(224, 42, 42);
+    }
+    .edit_btn{
+        background-color: rgb(4, 211, 35);
+    }
+    .share_btn{
+        background-color: rgb(19, 37, 233);
+    }
+    .link_access{
+        padding: 7px 5px;
+        background-color: rgb(167, 166, 166);
+        border-radius: 15px;
+        margin: 5px auto;
+        width: 50%;
+        font-size: 18px;
+        font-style: italic;
+    }
+    /* Main part book */
+ .book .name{
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+ }
+ .book .text{
+    text-indent: 20px;
+    font-size: 18px;
+ }
