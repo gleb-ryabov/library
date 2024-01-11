@@ -4,6 +4,7 @@ use App\Http\Controllers\AccessController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckBookAccess;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/access/users', [AccessController::class, 'users'])->name('access.users');
 });
 
-Route::get('/books/{id}', [BookController::class, 'show'])->name('book.show');
+Route::get('/books/{id}', [BookController::class, 'show'])->middleware(CheckBookAccess::class)->name('book.show');
 
 require __DIR__ . '/auth.php';

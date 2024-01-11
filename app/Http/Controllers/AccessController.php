@@ -11,21 +11,18 @@ class AccessController extends Controller
     // Display all users which give the access
     public function users()
     {
-        $users = Access::join('users', 'users.id', '=', 'id_giver')
-            ->where('id_recipient', auth()->user()->id)
-            ->where("deleted_at", null)
-            ->get();
+        $accessModel = new Access();
+        $users = $accessModel->users();
+
         return view('user.index', compact('users'));
     }
 
     // Changing access to library
     public function change($id_recipient)
     {
+        $accessModel = new Access();
         // Checking record access
-        $record = Access::where("id_recipient", $id_recipient)
-            ->where("id_giver", auth()->user()->id)
-            ->where("deleted_at", null)
-            ->first();
+        $record = $accessModel->checkRecord($id_recipient);
 
         // Delete or create the access
         if ($record) {

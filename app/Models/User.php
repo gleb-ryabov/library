@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,13 +49,41 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // Relationsheeps
-    public function books(): HasMany
+    // Function for get user's books, if user have the access
+    public function getBooks($id)
     {
-        return $this->hasMany(Book::class);
+        $books = User::whereHas('accessGiver', function (Builder $query) use ($id) {
+            $query->where('id_recipient', '=', auth()->user()->id)
+                ->where('id_giver', '=', $id)
+                ->whereNull('deleted_at');
+        })
+            ->with('booksUser')
+            ->get();
+        return $books;
+    }
+    // Function for checking access rights for library
+    public function checkAccess($user)
+    {
+        $access = User::whereHas('accessGiver', function (Builder $query) use ($user) {
+            $query->where('id_giver', '=', auth()->user()->id)
+                ->where('id_recipient', '=', $user->id)
+                ->whereNull('deleted_at');
+        })
+            ->exists();
+        return $access;
+    }
+
+    // Relationsheeps
+    public function booksUser(): HasMany
+    {
+        return $this->hasMany(Book::class, 'id_owner');
     }
     public function access(): HasMany
     {
         return $this->hasMany(Access::class, 'id_recipient');
+    }
+    public function accessGiver(): HasMany
+    {
+        return $this->hasMany(Access::class, 'id_giver');
     }
 }

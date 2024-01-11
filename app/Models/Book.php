@@ -15,6 +15,13 @@ class Book extends Model
     protected $table = "books";
     protected $guarded = [];
 
+    // Function for getting user's books
+    public function books()
+    {
+        $books = Book::where("id_owner", auth()->user()->id)->get();
+        return $books;
+    }
+
     // Relationsheeps
     public function user(): BelongsTo
     {

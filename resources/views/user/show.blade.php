@@ -19,13 +19,15 @@
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     @foreach ($books as $book)
-                        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                            <a href="{{route('book.show', $book->id)}}">
-                                <div class="max-w-xl">
-                                    {{$book->name}}
-                                </div>
-                            </a>
-                        </div>
+                        @foreach ($book->booksUser as $info_book)
+                            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                <a href="{{route('book.show', $info_book['id'])}}">
+                                    <div class="max-w-xl">
+                                        {{$info_book['name']}}
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
                     @endforeach
                 </div>
             </div>

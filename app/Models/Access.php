@@ -15,6 +15,26 @@ class Access extends Model
     protected $table = "accesses";
     protected $guarded = [];
 
+    // Function for Display all users which give the access
+    public function users()
+    {
+        $users = Access::where('id_recipient', auth()->user()->id)
+            ->whereNull('deleted_at')
+            ->with('userGiver')
+            ->get();
+        return $users;
+    }
+
+    // Function for Checking record access
+    public function checkRecord($id_recipient)
+    {
+        $record = Access::where("id_recipient", $id_recipient)
+            ->where("id_giver", auth()->user()->id)
+            ->where("deleted_at", null)
+            ->first();
+        return $record;
+    }
+
     // Relationsheeps
     public function userGiver(): BelongsTo
     {

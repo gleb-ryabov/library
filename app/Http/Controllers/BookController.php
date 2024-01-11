@@ -13,7 +13,8 @@ class BookController extends Controller
     // Display user's books
     public function index()
     {
-        $books = Book::where("id_owner", auth()->user()->id)->get();
+        $bookModel = new Book();
+        $books = $bookModel->books();
         return view("book.index", compact("books"));
     }
 
@@ -21,31 +22,16 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::findOrFail($id);
-
         $is_owner = 0;
-        $access_library = false;
-        if (auth()->check()) {
 
-            // checking whether the user is the owner
+        // checking whether the user is the owner
+        if (auth()->check()) {
             if ($book->id_owner == auth()->user()->id) {
                 $is_owner = 1;
             }
-
-            // checking the having to the library
-            $access_library = Book::join('users', 'users.id', '=', 'id_owner')
-                ->join('accesses', 'accesses.id_giver', '=', 'users.id')
-                ->where('books.id', $id)
-                ->where('id_recipient', auth()->user()->id)
-                ->where("accesses.deleted_at", null)
-                ->exists();
         }
 
-        // checking access rights
-        if (($book->link_access == 1) || $is_owner || $access_library) {
-            return view("book.show", compact("book", "is_owner"));
-        } else {
-            abort(404);
-        }
+        return view("book.show", compact("book", "is_owner"));
     }
 
     // Form for creating the book
